@@ -14,7 +14,7 @@ import inception_resnet_v2
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-MODEL_SAVE_PATH = '/Users/sunwc/Desktop/model/'
+MODEL_SAVE_PATH = '/Users/xxx/Desktop/model/'
 slim = tf.contrib.slim
 
 labels = ['土豆','圣女果','芒果','韭菜','大葱','大白菜','香蕉','胡萝卜','梨','黄瓜','西红柿','苹果']
@@ -28,13 +28,13 @@ labels = ['土豆','圣女果','芒果','韭菜','大葱','大白菜','香蕉','
 
 def validate_img():
     with tf.Graph().as_default():
-        # img = Image.open("/Users/sunwc/Desktop/image/tomato/timg-5.jpg")
-        img = Image.open("/Users/sunwc/Desktop/test_image_data/大白菜/timg (287.jpeg")
-        # img = Image.open("/Users/sunwc/Desktop/test_image_data/梨/tim9.jpeg")
-        # img = Image.open("/Users/sunwc/Desktop/test_image_data/胡萝卜/timg (1029.jpeg")
-        # img = Image.open("/Users/sunwc/Desktop/test_image_data/芒果/timg (136.jpeg")
-        # img = Image.open("/Users/sunwc/Desktop/test_image_data/苹果/0 (236.jpeg")
-        # img = Image.open("/Users/sunwc/Desktop/test_image_data/香蕉/timg (53.jpeg")
+        # img = Image.open("/Users/xxx/Desktop/image/tomato/timg-5.jpg")
+        img = Image.open("/Users/xxx/Desktop/test_image_data/大白菜/timg (287.jpeg")
+        # img = Image.open("/Users/xxx/Desktop/test_image_data/梨/tim9.jpeg")
+        # img = Image.open("/Users/xxx/Desktop/test_image_data/胡萝卜/timg (1029.jpeg")
+        # img = Image.open("/Users/xxx/Desktop/test_image_data/芒果/timg (136.jpeg")
+        # img = Image.open("/Users/xxx/Desktop/test_image_data/苹果/0 (236.jpeg")
+        # img = Image.open("/Users/xxx/Desktop/test_image_data/香蕉/timg (53.jpeg")
         img = misc.imresize(img, [299, 299])
         img = np.array(img)
         image = tf.cast(img, tf.float32)/255.-.5
@@ -45,9 +45,7 @@ def validate_img():
 
         x = tf.placeholder(tf.float32, shape=[None,299, 299, 3])
         init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
-        # saver = tf.train.import_meta_graph(MODEL_SAVE_PATH + "inception_resnet_v3_swcModel.ckpt-0.meta")#加载模型的参数
-        # p = tf.get_default_graph().get_tensor_by_name("InceptionResnetV2/Logits/Logits/BiasAdd:0")
-        # logits = tf.nn.softmax(p)
+        
         saver = tf.train.Saver()
         with tf.Session() as sess:
             sess.run(init_op)
@@ -62,7 +60,6 @@ def validate_img():
                                                      ignore_missing_vars=True)
             # 运行该函数
             init_fn(sess)
-            #建表的时候没分类啊
             if ckpt and ckpt.model_checkpoint_path:
                 # 调用saver.restore()函数，加载训练好的网络模型
                 saver.restore(sess, "/Users/sunwc/Desktop/model/model.ckpt-1600")
