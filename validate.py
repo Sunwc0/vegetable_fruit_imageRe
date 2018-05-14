@@ -74,10 +74,11 @@ def validate_img():
             smax_index = np.argmax(sprediction)
             sprediction[smax_index] = 0
             tmax_index = np.argmax(sprediction)
+            # 取的概率前三的输出
             print('预测的标签可能依次为：')
             print labels[max_index], labels[smax_index], labels[tmax_index]
             print('置信度分别是：')
             print prediction[0][max_index], prediction[0][smax_index], prediction[0][tmax_index]
 
 if __name__ == '__main__':
-    validate_img
+    validate_img()
